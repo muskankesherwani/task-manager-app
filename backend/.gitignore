@@ -1,0 +1,2 @@
+PORT=5000
+MONGODB_URI=mongodb+srv://MuskanKesherwani:<db_password>@cluster0.sghfsja.mongodb.net/?appName=Cluster0

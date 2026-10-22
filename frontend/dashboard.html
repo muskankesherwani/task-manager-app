@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Task Manager - Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+
+            <div>
+                <h1>Task Manager</h1>
+                <p id="welcomeMessage">Welcome!</p>
+            </div>
+
+            <button id="logoutButton">
+                Logout
+            </button>
+
+        </div>
+        <!--summary cards-->
+
+        <!--        <div class="summary-cards">
+            <div class="summary-card">
+                <h3>Total Tasks</h3>
+                <p id="totalTasks">0</p>
+            </div>
+            <div class="summary-card">
+                <h3>Pending</h3>
+                <p id="pendingTasks">0</p>
+            </div>
+            <div class="summary-card">
+                <h3>Completed</h3>
+                <p id="completedTasks">0</p>
+            </div>
+        </div>           -->
+
+
+        <div class="summary-cards">
+
+            <div class="summary-card total-card" role="button" tabindex="0"
+                onclick="filterTasks('all'); document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterTasks('all');document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});}">
+                <h3>Total Tasks</h3>
+                <p id="totalTasks">0</p>
+                <span>View all tasks →</span>
+            </div>
+
+            <div class="summary-card pending-card" role="button" tabindex="0"
+                onclick="filterTasks('pending'); document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterTasks('pending');document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});}">
+                <h3>Pending</h3>
+                <p id="pendingTasks">0</p>
+                <span>View pending →</span>
+            </div>
+
+            <div class="summary-card completed-card" role="button" tabindex="0"
+                onclick="filterTasks('completed'); document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterTasks('completed');document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});}">
+                <h3>Completed</h3>
+                <p id="completedTasks">0</p>
+                <span>View completed →</span>
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <!-- ADD TASK -->
+        <div class="task-form">
+
+            <h2>Add New Task</h2>
+
+            <form id="taskForm">
+
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" placeholder="Enter task title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" placeholder="Enter task description" rows="4"></textarea>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" id="category" placeholder="Study, Work, Personal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dueDate">Due Date</label>
+                        <input type="date" id="dueDate">
+                    </div>
+
+                </div>
+
+                <div class="priority-action-row">
+                    <!-- Task Priority -->
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="primary-button">
+                        + Add Task
+                    </button>
+                </div>
+
+            </form>
+
+            <p id="message"></p>
+
+        </div>
+
+
+        <!-- EDIT TASK -->
+
+        <div class="task-form" id="editTaskForm" style="display: none;">
+
+            <h2>Edit Task</h2>
+
+            <input type="hidden" id="editTaskId">
+
+            <div class="form-group">
+                <label for="editTitle">Title</label>
+                <input type="text" id="editTitle" required>
+            </div>
+
+            <div class="form-group">
+                <label for="editDescription">Description</label>
+                <textarea id="editDescription" rows="4"></textarea>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="editCategory">Category</label>
+                    <input type="text" id="editCategory">
+                </div>
+
+                <div class="form-group">
+                    <label for="editDueDate">Due Date</label>
+                    <input type="date" id="editDueDate">
+                </div>
+
+            </div>
+
+            
+
+            <div class="form-group">
+                <label for="editPriority">Priority</label>
+                <select id="editPriority" name="editPriority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+
+            <div class="task-actions">
+
+                <button type="button" id="saveChangesButton" class="primary-button">
+                    Save Changes
+                </button>
+
+                <button type="button" id="cancelEdit">
+                    Cancel
+                </button>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+        <!-- Search Tasks -->
+        <h3> Search Your Tasks</h3>
+        <div class="search-container">
+            <input type="text" id="taskSearch" placeholder="Search tasks by title or description..."
+                aria-label="Search tasks">
+
+            <button type="button" id="searchButton">
+                <span>Search</span>
+            </button>
+        </div> <br>
+
+
+
+
+        <!-- TASKS -->
+
+        <div class="tasks-section" id="myTasksSection">
+
+            <div class="tasks-header">
+
+                <h2>My Tasks</h2>
+
+                <div class="filter-buttons">
+
+                    <button type="button" class="filter-button active" onclick="filterTasks('all')">
+                        All
+                    </button>
+
+                    <button type="button" class="filter-button" onclick="filterTasks('pending')">
+                        Pending
+                    </button>
+
+                    <button type="button" class="filter-button" onclick="filterTasks('completed')">
+                        Completed
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table class="task-table">
+
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Due Date</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="taskList">
+                        <tr>
+                            <td colspan="6">Loading tasks...</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+        </div>
+
+
+        <script src="js/config.js"></script>
+        <script src="js/dashboard.js"></script>
+
+        <script>
+            loadTasks();
+        </script>
+
+</body>
+
+</html>
+
+
+
