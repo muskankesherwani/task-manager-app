@@ -9,44 +9,19 @@
 
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
-
 <body>
-
     <div class="container">
-
         <!-- HEADER -->
         <div class="header">
-
             <div>
                 <h1>Task Manager</h1>
                 <p id="welcomeMessage">Welcome!</p>
             </div>
-
             <button id="logoutButton">
                 Logout
             </button>
-
         </div>
-        <!--summary cards-->
-
-        <!--        <div class="summary-cards">
-            <div class="summary-card">
-                <h3>Total Tasks</h3>
-                <p id="totalTasks">0</p>
-            </div>
-            <div class="summary-card">
-                <h3>Pending</h3>
-                <p id="pendingTasks">0</p>
-            </div>
-            <div class="summary-card">
-                <h3>Completed</h3>
-                <p id="completedTasks">0</p>
-            </div>
-        </div>           -->
-
-
         <div class="summary-cards">
-
             <div class="summary-card total-card" role="button" tabindex="0"
                 onclick="filterTasks('all'); document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});"
                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterTasks('all');document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});}">
@@ -62,7 +37,6 @@
                 <p id="pendingTasks">0</p>
                 <span>View pending →</span>
             </div>
-
             <div class="summary-card completed-card" role="button" tabindex="0"
                 onclick="filterTasks('completed'); document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});"
                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();filterTasks('completed');document.getElementById('myTasksSection').scrollIntoView({behavior:'smooth'});}">
@@ -70,7 +44,6 @@
                 <p id="completedTasks">0</p>
                 <span>View completed →</span>
             </div>
-
         </div>
 
 
